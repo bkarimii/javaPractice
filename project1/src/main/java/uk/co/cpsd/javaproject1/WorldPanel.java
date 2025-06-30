@@ -38,7 +38,7 @@ public class WorldPanel extends JPanel {
         world.animals().forEach(animal->{
             
             g.setColor(animal.getColor());
-            g.fillRect(animal.getX() * cellSize+2, animal.getY() * cellSize+2, cellSize-4,cellSize-4);
+            g.fillRect(animal.getX() * cellSize+10, animal.getY() * cellSize+10, cellSize-15,cellSize-15);
         });
     }
 }
