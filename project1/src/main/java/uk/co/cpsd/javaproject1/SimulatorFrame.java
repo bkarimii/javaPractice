@@ -11,7 +11,7 @@ public class SimulatorFrame extends JFrame {
     private final Timer timer;
 
     public SimulatorFrame() {
-        world = new World();
+        world = new World(7);
 
         worldPanel = new WorldPanel(world);
         add(worldPanel);
