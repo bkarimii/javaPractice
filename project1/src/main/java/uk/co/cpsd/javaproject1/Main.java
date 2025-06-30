@@ -5,7 +5,7 @@ import javax.swing.SwingUtilities;
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            // Assigning the new object to a variable resolves the warning.
+            @SuppressWarnings("unused")
             SimulatorFrame frame = new SimulatorFrame();
         });
     }

@@ -1,12 +1,14 @@
 package uk.co.cpsd.javaproject1;
 
-import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
+import javax.swing.Timer;
 
 public class SimulatorFrame extends JFrame {
     private World world;
     private WorldPanel worldPanel;
-    private Timer timer;
+    private final Timer timer;
 
     public SimulatorFrame() {
         world = new World();
@@ -20,11 +22,9 @@ public class SimulatorFrame extends JFrame {
         setVisible(true);
 
         // Set up simulation timer (1 tick per 500ms)
-        timer = new Timer(500, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                world.tick();
-                worldPanel.repaint();
-            }
+        timer = new Timer(500, (ActionEvent e) -> {
+            world.tick();
+            worldPanel.repaint();
         });
 
         // Start the simulation

@@ -2,7 +2,7 @@ package uk.co.cpsd.javaproject1;
 
 public class World {
     public final int size = 10;
-    private boolean[][] grass = new boolean[size][size];
+    private final boolean[][] grass = new boolean[size][size];
 
     public void growGrass() {
         int x = (int)(Math.random() * size);
