@@ -37,4 +37,8 @@ public class World {
     public void tick() {
         growGrass();
     }
+
+    public void moveAnimal(){
+        animals.forEach(animal-> animal.move(size));
+    }
 }
