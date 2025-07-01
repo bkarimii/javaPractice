@@ -16,9 +16,7 @@ public abstract class Animal {
 
     public abstract void move(int worldSize);
 
-    public Color getColor(){
-        return Color.RED;
-    }
+    public abstract Color getColor();
 
     public int getX(){
         return x;
