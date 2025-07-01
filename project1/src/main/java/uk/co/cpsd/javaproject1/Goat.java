@@ -8,6 +8,10 @@ public class Goat extends Animal {
         super(x,y,10);
     }
 
+    public void eatGrass(){
+        this.energyLevel+=5;
+        System.out.println("Goat at X:"+ x+" Y:"+y+"ate grass. energy level: "+ energyLevel);
+    }
     @Override
     public void move(int worldSize){
         int dx= (int) (Math.random()*3)-1;

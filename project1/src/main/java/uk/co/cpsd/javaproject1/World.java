@@ -39,6 +39,17 @@ public class World {
     }
 
     public void moveAnimals(){
-        animals.forEach(animal-> animal.move(size));
+        animals.forEach(animal-> {
+            animal.move(size);
+
+            if(animal instanceof Goat){
+                Goat currentGoat=(Goat) animal;
+                if(hasGrass(currentGoat.getX(), currentGoat.getY())){
+                    currentGoat.eatGrass();
+                    removeGrass(currentGoat.getX(), currentGoat.getY());
+                }
+            }
+        });
+
     }
 }
