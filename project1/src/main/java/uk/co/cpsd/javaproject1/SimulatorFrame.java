@@ -9,7 +9,7 @@ public class SimulatorFrame extends JFrame {
     private World world;
     private WorldPanel worldPanel;
     private final Timer timer;
-    private final Timer goaTimer;
+    private final Timer goatTimer;
 
     public SimulatorFrame() {
         world = new World(7);
@@ -28,12 +28,12 @@ public class SimulatorFrame extends JFrame {
             worldPanel.repaint();
         });
 
-        goaTimer = new Timer(2000,(ActionEvent e)->{
-            world.moveAnimal();
+        goatTimer = new Timer(2000,(ActionEvent e)->{
+            world.moveAnimals();
             // worldPanel.repaint();
         });
         // Start the simulation
         timer.start();
-        goaTimer.start();
+        goatTimer.start();
     }
 }
