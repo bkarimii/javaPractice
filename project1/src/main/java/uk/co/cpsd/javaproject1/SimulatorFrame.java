@@ -9,9 +9,10 @@ public class SimulatorFrame extends JFrame {
     private World world;
     private WorldPanel worldPanel;
     private final Timer timer;
+    private final Timer goatTimer;
 
     public SimulatorFrame() {
-        world = new World();
+        world = new World(7);
 
         worldPanel = new WorldPanel(world);
         add(worldPanel);
@@ -22,12 +23,17 @@ public class SimulatorFrame extends JFrame {
         setVisible(true);
 
         // Set up simulation timer (1 tick per 500ms)
-        timer = new Timer(500, (ActionEvent e) -> {
+        timer = new Timer(1000, (ActionEvent e) -> {
             world.tick();
             worldPanel.repaint();
         });
 
+        goatTimer = new Timer(2000,(ActionEvent e)->{
+            world.moveAnimals();
+            // worldPanel.repaint();
+        });
         // Start the simulation
         timer.start();
+        goatTimer.start();
     }
 }
