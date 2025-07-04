@@ -4,6 +4,8 @@ import java.awt.Color;
 
 public class Goat extends Animal {
     
+    public final int ENERGY_DECREASE_INTERVAL=5;
+
     public Goat(int x,int y,int id){
         super(x,y,10,id);
     }
@@ -24,5 +26,18 @@ public class Goat extends Animal {
     @Override
     public Color getColor(){
         return Color.RED;
+    }
+
+    @Override
+    public boolean decreaseEnergy(int currentTick){
+
+        if(currentTick-lastEnergyDecreaseTick>=ENERGY_DECREASE_INTERVAL){
+            energyLevel-=2;
+            lastEnergyDecreaseTick=currentTick;
+            return energyLevel <= 0;
+        }
+
+        System.out.println("Goat " + id + " energy decreased to " + energyLevel);
+        return false;
     }
 }
