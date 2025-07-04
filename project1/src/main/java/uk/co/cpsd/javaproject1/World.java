@@ -6,11 +6,11 @@ import java.util.stream.Stream;
 
 public class World {
      public final int size = 10;
-    private boolean[][] grass = new boolean[size][size];
-    private List<Animal> animals;
+    private final boolean[][] grass = new boolean[size][size];
+    private final List<Animal> animals;
 
     public World(int numOfGoats){
-        animals=new ArrayList<Animal>();
+        animals=new ArrayList<>();
         for(int i=0;i<numOfGoats;i++){
             animals.add(new Goat((int)(Math.random() * size),(int)(Math.random() * size)));
         }
