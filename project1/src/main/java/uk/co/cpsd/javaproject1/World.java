@@ -60,7 +60,17 @@ public class World {
     public void tick() {
         growGrass();
         
+
+        for(Animal animal:animals){
+            boolean isDead= animal.decreaseEnergy(totalTicks);
+            if(isDead){
+                deadAnimals.add(animal);
+            }
+        }
+        animals.removeAll(deadAnimals);
     }
+
+    
 
     public void moveAnimals(){
         animals.forEach(animal-> animal.act(this));
