@@ -8,6 +8,7 @@ public class World {
     public final int size = 10;
     private int[][] grassAge = new int[size][size];
     private List<Animal> animals;
+    private List<Animal> deadAnimals= new ArrayList<>();
     private int nextAnimalId=0;
     private int totalTicks;
 
@@ -93,7 +94,17 @@ public class World {
 
         final int MAX_GRASS_AGE=20;
         grassDies(size, MAX_GRASS_AGE);
+
+        for(Animal animal:animals){
+            boolean isDead= animal.decreaseEnergy(totalTicks);
+            if(isDead){
+                deadAnimals.add(animal);
+            }
+        }
+        animals.removeAll(deadAnimals);
     }
+
+    
 
     public void moveAnimals(){
         animals.forEach(animal-> {
