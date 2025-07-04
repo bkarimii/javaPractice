@@ -58,6 +58,8 @@ public class World {
 
     public void tick() {
         totalTicks++;
+        ageIncreaser(size);
+
         growGrass();
         
         List<Animal> deadAnimals=new ArrayList<>();
