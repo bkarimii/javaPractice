@@ -24,7 +24,25 @@ public class World {
         }
     }
 
+    public int findNumOfGoats(){
+        return (int) animals.stream().filter(animal-> animal instanceof Goat).count();
+    }
 
+    public int findNumOfGrass(){
+        int numOfGrass=0;
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+                if(grassAge[i][j]>0){
+                    numOfGrass++;
+                }
+            }
+        }
+        return numOfGrass;
+    }
+
+    public int getSecondsElapsed(){
+        return totalTicks;
+    }
     public void growGrass() {
         int x = (int)(Math.random() * size);
         int y = (int)(Math.random() * size);
@@ -60,7 +78,6 @@ public class World {
     public void grassDies(int worldSize,int maxAge){
         for(int i=0;i<size;i++){
             for(int j=0; j<size; j++){
-                totalTicks++;
                 if(grassAge[i][j]>maxAge){
                     removeGrass(i, j);
                     System.out.println("Grass at [" + i + " , " + j + "] died of old age after " + maxAge + " ticks (at total tick: " + totalTicks + ").");
@@ -69,7 +86,7 @@ public class World {
         }
     }
     public void tick() {
-
+        totalTicks++;
         ageIncreaser(size);
 
         growGrass();
