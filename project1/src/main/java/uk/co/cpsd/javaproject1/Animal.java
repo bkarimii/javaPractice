@@ -8,6 +8,7 @@ public abstract class Animal {
     protected int y;
     protected int energyLevel;
     protected int id;
+    protected int lastEnergyDecreaseTick=0;
 
     public Animal(int x,int y, int energyLevel,int animalId){
         this.x=x;
@@ -18,6 +19,10 @@ public abstract class Animal {
 
     public abstract void move(int worldSize);
 
+    public boolean decreaseEnergy(int currentTime){
+        return energyLevel<=0 ? true :false;
+    }
+    
     public abstract Color getColor();
 
     public int getX(){
