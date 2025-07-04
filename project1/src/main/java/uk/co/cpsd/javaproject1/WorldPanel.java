@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public class WorldPanel extends JPanel {
-    private final World world;
+    private World world;
 
     public WorldPanel(World world) {
         this.world = world;
@@ -34,5 +34,11 @@ public class WorldPanel extends JPanel {
                 g.drawRect(x * cellSize, y * cellSize, cellSize, cellSize);
             }
         }
+        
+        world.animals().forEach(animal->{
+            
+            g.setColor(animal.getColor());
+            g.fillRect(animal.getX() * cellSize+10, animal.getY() * cellSize+10, cellSize-15,cellSize-15);
+        });
     }
 }
