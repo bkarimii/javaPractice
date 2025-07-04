@@ -21,7 +21,25 @@ public class World {
     public boolean hasGrass(int x , int y){
         return grassDeathTime[x][y]>totalTicks;
     }
+    public int findNumOfGoats(){
+        return (int) animals.stream().filter(animal-> animal instanceof Goat).count();
+    }
 
+    public int findNumOfGrass(){
+        int numOfGrass=0;
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+                if(grassAge[i][j]>0){
+                    numOfGrass++;
+                }
+            }
+        }
+        return numOfGrass;
+    }
+
+    public int getSecondsElapsed(){
+        return totalTicks;
+    }
     public void growGrass(){
         int x = (int)(Math.random() * size);
         int y = (int)(Math.random() * size);
