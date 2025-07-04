@@ -8,7 +8,7 @@ import java.awt.Font;
 import javax.swing.JPanel;
 
 public class WorldPanel extends JPanel {
-    private World world;
+    private final World world;
 
     public WorldPanel(World world) {
         this.world = world;
