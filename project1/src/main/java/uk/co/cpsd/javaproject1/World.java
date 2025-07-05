@@ -1,7 +1,9 @@
 package uk.co.cpsd.javaproject1;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class World {
@@ -91,6 +93,9 @@ public class World {
         ageIncreaser(size);
 
         growGrass();
+        growGrass();
+        growGrass();
+        growGrass();
 
         final int MAX_GRASS_AGE=20;
         grassDies(size, MAX_GRASS_AGE);
@@ -101,6 +106,7 @@ public class World {
                 deadAnimals.add(animal);
             }
         }
+        makeBabyGoat();
         animals.removeAll(deadAnimals);
     }
 
@@ -119,5 +125,37 @@ public class World {
             }
         });
 
+    }
+
+    public void makeBabyGoat(){
+        Set<Integer> isAlreadyProduced=new HashSet<>();
+        List<Animal> newBabies=new ArrayList<>();
+
+        for(Animal a1:animals){
+            if(!(a1 instanceof Goat) || isAlreadyProduced.contains(a1.getId())) continue;
+            Goat goat1=(Goat) a1;
+            for(Animal a2:animals){
+                if((a1==a2) || !(a2 instanceof Goat) || isAlreadyProduced.contains(a2.getId())) continue;
+                Goat goat2= (Goat) a2;
+                boolean isSameLocation= (goat1.getX()==goat2.getX() && goat1.getY()==goat2.getY());
+                boolean isDifferentGender= goat1.getGender()!=goat2.getGender();
+                if(isSameLocation && isDifferentGender && goat1.getEnergy()>=15 && goat2.getEnergy()>=15){
+                    Goat baby= new Goat(goat1.getX(), goat1.getY(), nextAnimalId++);
+                    baby.energyLevel=5;
+                    newBabies.add(baby);
+                    System.out.println("================New baby was born =========");
+
+                    isAlreadyProduced.add(goat1.getId());
+                    isAlreadyProduced.add(goat2.getId());
+                    goat1.decreaseEnergyBy(2);
+                    goat2.decreaseEnergyBy(2);
+                }
+            }
+
+        }
+
+        animals.addAll(newBabies);
+
+        
     }
 }
