@@ -6,8 +6,20 @@ public class Goat extends Animal {
     
     public final int ENERGY_DECREASE_INTERVAL=5;
 
+    private Gender gender;
+
+    public enum Gender {
+        MALE,
+        FEMALE
+    }
+
     public Goat(int x,int y,int id){
         super(x,y,10,id);
+        this.gender=Math.random()<.5 ? Gender.MALE:Gender.FEMALE;
+    }
+
+    public Gender getGender(){
+        return gender;
     }
 
     public void eatGrass(){
