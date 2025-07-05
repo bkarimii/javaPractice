@@ -24,7 +24,7 @@ public abstract class Animal {
     }
 
     public void decreaseEnergyBy(int amount){
-        this.energyLevel=-amount;
+        this.energyLevel-=amount;
     }
     
     public abstract Color getColor();
