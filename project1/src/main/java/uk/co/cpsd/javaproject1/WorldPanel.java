@@ -50,6 +50,11 @@ public class WorldPanel extends JPanel {
 
             // Calculate text position to try and center it within the animal's drawn area
             String idText = String.valueOf(animal.getId());
+            if (animal instanceof Goat) {
+                Goat goat = (Goat) animal;
+                char genderChar = goat.getGender() == Goat.Gender.MALE ? 'M' : 'F';
+                idText += genderChar; // Append the letter to the number
+            }
             int textWidth = g.getFontMetrics().stringWidth(idText);
             int textHeight = g.getFontMetrics().getHeight();
 
