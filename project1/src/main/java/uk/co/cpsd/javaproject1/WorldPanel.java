@@ -3,16 +3,27 @@ package uk.co.cpsd.javaproject1;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.awt.Font;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class WorldPanel extends JPanel {
     private final World world;
+    private BufferedImage goatImage;
 
     public WorldPanel(World world) {
         this.world = world;
         setPreferredSize(new Dimension(600, 650));
+        try {
+            goatImage = ImageIO.read(getClass().getResource("/goat.png"));
+
+            System.out.println(goatImage+"--------------------------");
+        } catch (Exception e) {
+            goatImage = null;
+            System.err.println("Could not load goat image: " + e.getMessage());
+        }
     }
 
     @Override
@@ -36,11 +47,15 @@ public class WorldPanel extends JPanel {
             }
         }
         
+
         world.animals().forEach(animal->{
             
-            g.setColor(animal.getColor());
-            g.fillRect(animal.getX() * cellSize+10, animal.getY() * cellSize+10, cellSize-15,cellSize-15);
-
+            if(animal instanceof Goat && goatImage!=null){
+                g.drawImage(goatImage, animal.getX() * cellSize+10, animal.getY() * cellSize+10, cellSize-15,cellSize-15,null);
+            }else{
+                g.setColor(animal.getColor());
+                g.fillRect(animal.getX() * cellSize+10, animal.getY() * cellSize+10, cellSize-15,cellSize-15);
+            }
             
             // Goats have number id, and is shown in the panel. Code has been written by AI
 
