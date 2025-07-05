@@ -12,7 +12,7 @@ public class SimulatorFrame extends JFrame {
     private final Timer goatTimer;
 
     public SimulatorFrame() {
-        world = new World(10);
+        world = new World(20);
 
         worldPanel = new WorldPanel(world);
         add(worldPanel);
