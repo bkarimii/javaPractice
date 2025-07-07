@@ -43,6 +43,10 @@ public class World {
         return numOfGrass;
     }
 
+    public int getGrassAgeAt(int x,int y){
+        return grassAge[x][y];
+    }
+    
     public int getSecondsElapsed(){
         return totalTicks;
     }
