@@ -60,6 +60,38 @@ public class GoatTest {
         Assertions.assertEquals(energy, expected);
     }
 
+    @Test
+    public void testDecreaseEnergy(){
+        
+        int startingenergy=goat.getEnergy();
+        boolean isDead = goat.decreaseEnergy(5);
+        int currentEnergy=goat.getEnergy();
+        Assertions.assertEquals(startingenergy-2,currentEnergy);
+        Assertions.assertFalse(isDead);
+    }
+
+    @Test
+    public void testEatGrass(){
+        int startingEnergy=goat.getEnergy();
+        goat.eatGrass();
+        int currentEnergy=goat.getEnergy();
+        Assertions.assertEquals(startingEnergy+5, currentEnergy);
+    }
+
+    @Test
+    public void testIfGoatsDies(){
+        int tick=0;
+        boolean isDead=false;
+
+        while (!isDead) {
+            isDead=goat.decreaseEnergy(tick);
+            tick+=5;
+        }
+
+        Assertions.assertTrue(isDead);
+        Assertions.assertTrue(goat.getEnergy()<=0);
+    }
+
     
 
 }
