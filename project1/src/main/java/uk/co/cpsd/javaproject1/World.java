@@ -7,9 +7,10 @@ import java.util.stream.Stream;
 public class World {
     public final int size = 10;
     private int[][] grassAge = new int[size][size];
+    private int[][] grassBornTick= new int[size][size];
     private List<Animal> animals;
-    // private int nextAnimalId=0;
     private int totalTicks;
+    private final int MAX_GRASS_AGE=25;
 
     public World(int numOfGoats){
         animals=new ArrayList<>();
@@ -31,6 +32,17 @@ public class World {
         
         if(grassAge[x][y]==0){
             grassAge[x][y]=1;
+        }
+        System.out.println("Grass grew at (" + x + "," + y + ") at total tick: " + totalTicks);
+    }
+
+    // new implementation
+    public void growGrassTwo() {
+        int x = (int)(Math.random() * size);
+        int y = (int)(Math.random() * size);
+        
+        if(grassBornTick[x][y]==0){
+            grassBornTick[x][y]=totalTicks;
         }
         System.out.println("Grass grew at (" + x + "," + y + ") at total tick: " + totalTicks);
     }
