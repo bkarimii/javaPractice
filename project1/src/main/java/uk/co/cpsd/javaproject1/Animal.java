@@ -32,5 +32,7 @@ public abstract class Animal {
     public int getId(){
         return animalId;
     }
+
+    public abstract void act(World world);
     
 }

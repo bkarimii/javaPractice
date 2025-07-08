@@ -25,4 +25,9 @@ public class Goat extends Animal {
     public Color getColor(){
         return Color.RED;
     }
+
+    @Override
+    public void act(World world){
+        System.out.println("HI");
+    }
 }
