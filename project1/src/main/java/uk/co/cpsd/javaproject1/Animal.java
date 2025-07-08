@@ -1,19 +1,21 @@
 package uk.co.cpsd.javaproject1;
 
 import java.awt.Color;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Animal {
     
     protected int x;
     protected int y;
     protected int energyLevel;
-    protected int id;
+    protected int animalId;
+    private final AtomicInteger idCounter=new AtomicInteger(0);
 
-    public Animal(int x,int y, int energyLevel,int animalId){
+    public Animal(int x,int y, int energyLevel){
         this.x=x;
         this.y=y;
         this.energyLevel=energyLevel;
-        this.id=animalId;
+        this.animalId=idCounter.getAndIncrement();
     }
 
     public abstract void move(int worldSize);
@@ -28,7 +30,7 @@ public abstract class Animal {
     }
 
     public int getId(){
-        return id;
+        return animalId;
     }
     
 }

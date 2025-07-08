@@ -8,13 +8,13 @@ public class World {
     public final int size = 10;
     private int[][] grassAge = new int[size][size];
     private List<Animal> animals;
-    private int nextAnimalId=0;
+    // private int nextAnimalId=0;
     private int totalTicks;
 
     public World(int numOfGoats){
         animals=new ArrayList<>();
         for(int i=0;i<numOfGoats;i++){
-            animals.add(new Goat((int)(Math.random() * size),(int)(Math.random() * size),nextAnimalId++));
+            animals.add(new Goat((int)(Math.random() * size),(int)(Math.random() * size)));
         }
 
         for(int i=0;i<size;i++){
