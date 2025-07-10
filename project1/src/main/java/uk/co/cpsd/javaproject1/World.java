@@ -19,17 +19,6 @@ public class World {
         }
     }
 
-
-    // public void growGrass() {
-    //     int x = (int)(Math.random() * size);
-    //     int y = (int)(Math.random() * size);
-        
-    //     if(grassAge[x][y]==0){
-    //         grassAge[x][y]=1;
-    //     }
-    //     System.out.println("Grass grew at (" + x + "," + y + ") at total tick: " + totalTicks);
-    // }
-
     // new implementation
     public void growGrassTwo() {
         int x = (int)(Math.random() * size);
@@ -71,17 +60,7 @@ public class World {
     }
 
     public void moveAnimals(){
-        animals.forEach(animal-> {
-            animal.move(size);
-
-            if(animal instanceof Goat){
-                Goat currentGoat=(Goat) animal;
-                if(hasGrass(currentGoat.getX(), currentGoat.getY())){
-                    currentGoat.eatGrass();
-                    removeGrass(currentGoat.getX(), currentGoat.getY());
-                }
-            }
-        });
+        animals.forEach(animal-> animal.act(this));
 
     }
 }
