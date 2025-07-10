@@ -36,25 +36,23 @@ public class WorldPanel extends JPanel {
             }
         }
         
+        Font font=new Font("Arial", Font.BOLD, Math.max(10, cellSize / 3));
         world.animals().forEach(animal->{
             
             g.setColor(animal.getColor());
             g.fillRect(animal.getX() * cellSize+10, animal.getY() * cellSize+10, cellSize-15,cellSize-15);
 
+            g.setColor(Color.BLACK);
             
-            // Goats have number id, and is shown in the panel. Code has been written by AI
-
-            g.setColor(Color.BLACK); // Set color for the text (e.g., black)
-            // Adjust font size based on cell size for better visibility
-            g.setFont(new Font("Arial", Font.BOLD, Math.max(10, cellSize / 3))); // <--- NEW: Set font
+            g.setFont(font); // <--- NEW: Set font
 
             // Calculate text position to try and center it within the animal's drawn area
             String idText = String.valueOf(animal.getId());
             int textWidth = g.getFontMetrics().stringWidth(idText);
             int textHeight = g.getFontMetrics().getHeight();
-
+            System.out.println("This is animal id: "+idText);
             int textX = animal.getX() * cellSize + (cellSize / 2) - (textWidth / 2);
-            int textY = animal.getY() * cellSize + (cellSize / 2) + (textHeight / 4); // Adjust for baseline
+            int textY = animal.getY() * cellSize + (cellSize / 2) + (textHeight / 4);
 
             g.drawString(idText, textX, textY);
         });
