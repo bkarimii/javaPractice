@@ -9,10 +9,11 @@ import javax.swing.JPanel;
 
 public class WorldPanel extends JPanel {
     private final World world;
-
+    private final Font font;
     public WorldPanel(World world) {
         this.world = world;
         setPreferredSize(new Dimension(500, 500));
+        this.font=new Font("Arial", Font.BOLD, 18);
     }
 
     @Override
@@ -36,7 +37,7 @@ public class WorldPanel extends JPanel {
             }
         }
         
-        Font font=new Font("Arial", Font.BOLD, Math.max(10, cellSize / 3));
+        
         world.animals().forEach(animal->{
             
             g.setColor(animal.getColor());
