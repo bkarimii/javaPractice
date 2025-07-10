@@ -28,6 +28,11 @@ public class Goat extends Animal {
 
     @Override
     public void act(World world){
-        System.out.println("HI");
+        move(world.size);
+        if(world.hasGrass(x, y)){
+            eatGrass();
+            world.removeGrass(x, y);
+        }
+
     }
 }
