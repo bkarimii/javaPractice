@@ -9,7 +9,7 @@ public abstract class Animal {
     protected int y;
     protected int energyLevel;
     protected int animalId;
-    private final AtomicInteger idCounter=new AtomicInteger(0);
+    private static final AtomicInteger idCounter=new AtomicInteger(0);
 
     public Animal(int x,int y, int energyLevel){
         this.x=x;
