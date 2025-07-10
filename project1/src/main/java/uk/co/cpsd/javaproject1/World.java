@@ -1,6 +1,7 @@
 package uk.co.cpsd.javaproject1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
@@ -11,6 +12,7 @@ public class World {
     private int totalTicks;
     private final int MAX_GRASS_AGE=25;
     List<GrassExpiry> grassDeathTimeList=new ArrayList<>();
+    HashMap<Integer, List<GrassExpiry>> grassTickTimeToDie= new HashMap<>();
 
     public World(int numOfGoats){
         animals=new ArrayList<>();
@@ -26,27 +28,47 @@ public class World {
         int deathTick=totalTicks+MAX_GRASS_AGE;
         // if(hasGrass(x, y)) return;
         GrassExpiry newGrass=new GrassExpiry(x, y, deathTick);
-        grassDeathTimeList.add(newGrass);
+        grassTickTimeToDie.computeIfAbsent(deathTick, k-> new ArrayList<>()).add(newGrass);
         System.out.println("Grass grew at (" + x + "," + y + ") at total tick: " + totalTicks);
     }
 
     public boolean hasGrass(int x, int y){
-        return grassDeathTimeList.stream().anyMatch(g-> g.x==x && g.y==y);
+        return grassTickTimeToDie.values().stream().flatMap(List::stream).anyMatch(g-> g.x==x && g.y==y);
     }
 
     public void removeDeadGrass(){
-        Iterator<GrassExpiry> iterateGrass= grassDeathTimeList.iterator();
+        List<GrassExpiry> toRemove=  grassTickTimeToDie.get(totalTicks);
 
-        while(iterateGrass.hasNext()){
-            GrassExpiry grass=iterateGrass.next();
-            if(grass.deathTick==totalTicks){
-                iterateGrass.remove();
+        if(toRemove!=null){
+            for(GrassExpiry grass:toRemove){
+                removeGrass(grass.x,grass.y);
+
             }
+            grassTickTimeToDie.remove(totalTicks);
         }
-
     }
     public void removeGrass(int x, int y){
-        grassDeathTimeList.removeIf(g->g.x==x&&g.y==y);
+        for (Iterator<HashMap.Entry<Integer, List<GrassExpiry>>> mapIterator = grassTickTimeToDie.entrySet().iterator(); mapIterator.hasNext(); ) {
+            HashMap.Entry<Integer, List<GrassExpiry>> entry = mapIterator.next();
+            List<GrassExpiry> grassList = entry.getValue();
+        
+            for (Iterator<GrassExpiry> listIterator = grassList.iterator(); listIterator.hasNext(); ) {
+                GrassExpiry g = listIterator.next();
+                if (g.x == x && g.y == y) {
+                    listIterator.remove();
+        
+                    if (grassList.isEmpty()) {
+                        mapIterator.remove();
+                    }
+        
+                    return; 
+                }
+            }
+        }
+    }
+
+    public void removeGrassTest(int x , int y){
+
     }
 
     public Stream<Animal> animals(){
