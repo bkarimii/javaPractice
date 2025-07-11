@@ -45,7 +45,7 @@ public class WorldPanel extends JPanel {
 
             g.setColor(Color.BLACK);
             
-            g.setFont(font); // <--- NEW: Set font
+            g.setFont(font);
 
             // Calculate text position to try and center it within the animal's drawn area
             String idText = String.valueOf(animal.getId());
