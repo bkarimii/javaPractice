@@ -47,7 +47,7 @@ public class Goat extends Animal {
             return energyLevel <= 0;
         }
 
-        System.out.println("Goat " + id + " energy decreased to " + energyLevel);
+        System.out.println("Goat " + animalId + " energy decreased to " + energyLevel);
         return false;
     }
 }
