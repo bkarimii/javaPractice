@@ -10,7 +10,6 @@ public class World {
     private int totalTicks;
     private final int MAX_GRASS_AGE=25;
     private int[][] grassDeathTime= new int[size][size]; 
-    private List<Animal> deadAnimals=new ArrayList<>();
     public World(int numOfGoats){
         animals=new ArrayList<>();
         for(int i=0;i<numOfGoats;i++){
@@ -27,9 +26,9 @@ public class World {
 
     public int findNumOfGrass(){
         int numOfGrass=0;
-        for(int i=0;i<size;i++){
-            for(int j=0;j<size;j++){
-                if(grassDeathTime[i][j]>totalTicks){
+        for(int x=0;x<size;x++){
+            for(int y=0;y<size;y++){
+                if(grassDeathTime[x][y]>totalTicks){
                     numOfGrass++;
                 }
             }
@@ -61,7 +60,7 @@ public class World {
         totalTicks++;
         growGrass();
         
-
+        List<Animal> deadAnimals=new ArrayList<>();
         for(Animal animal:animals){
             boolean isDead= animal.decreaseEnergy(totalTicks);
             if(isDead){
