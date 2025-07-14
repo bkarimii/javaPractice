@@ -28,7 +28,7 @@ public class World {
         int numOfGrass=0;
         for(int x=0;x<size;x++){
             for(int y=0;y<size;y++){
-                if(grassDeathTime[x][y]>totalTicks){
+                if(hasGrass(x, y)){
                     numOfGrass++;
                 }
             }
