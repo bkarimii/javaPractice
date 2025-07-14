@@ -3,13 +3,15 @@ package uk.co.cpsd.javaproject1;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 public class SimulatorFrame extends JFrame {
     private World world;
     private WorldPanel worldPanel;
-    private final Timer timer;
-    private final Timer goatTimer;
+    private Timer timer;
+    // private final Timer goatTimer;
+    private int tickLimitSimulation=300;
 
     public SimulatorFrame() {
         world = new World(20);
@@ -24,16 +26,28 @@ public class SimulatorFrame extends JFrame {
 
         // Set up simulation timer (1 tick per 500ms)
         timer = new Timer(1000, (ActionEvent e) -> {
-            world.tick();
-            worldPanel.repaint();
+            world.moveAnimals();        // Make goats move + eat + act
+            world.tick();               // Tick: grow grass, energy, reproduction
+            worldPanel.repaint();       // Show updates on the screen
+        
+            if (world.getSecondsElapsed() >= tickLimitSimulation) {
+                timer.stop();
+        
+                SwingUtilities.invokeLater(() -> {
+                    GoatChart chart = new GoatChart(world.getGoatHistory(),world.getGrassHistory());
+                    chart.setVisible(true);
+                });
+            }
         });
+        
 
-        goatTimer = new Timer(2000,(ActionEvent e)->{
-            world.moveAnimals();
-            // worldPanel.repaint();
-        });
+        // goatTimer = new Timer(2000,(ActionEvent e)->{
+        //     world.moveAnimals();
+        //     // worldPanel.repaint();
+        // });
         // Start the simulation
         timer.start();
-        goatTimer.start();
+        // goatTimer.start();
+        
     }
 }

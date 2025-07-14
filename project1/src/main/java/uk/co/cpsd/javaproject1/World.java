@@ -12,11 +12,21 @@ public class World {
     private int totalTicks;
     private final int MAX_GRASS_AGE=25;
     private int[][] grassDeathTime= new int[size][size]; 
+    private List<Integer> goatHistory = new ArrayList<>();
+    private List<Integer> grassHistory = new ArrayList<>();
     public World(int numOfGoats){
         animals=new ArrayList<>();
         for(int i=0;i<numOfGoats;i++){
             animals.add(new Goat((int)(Math.random() * size),(int)(Math.random() * size)));
         }
+    }
+
+    public List<Integer> getGoatHistory() {
+        return goatHistory;
+    }
+
+    public List<Integer> getGrassHistory() {
+        return grassHistory;
     }
 
     public boolean hasGrass(int x , int y){
@@ -64,7 +74,11 @@ public class World {
         growGrass();
         growGrass();
         growGrass();
-        
+        growGrass();
+        growGrass();
+        int goatCount = findNumOfGoats();
+        goatHistory.add(goatCount);
+        grassHistory.add(findNumOfGrass());
         List<Animal> deadAnimals=new ArrayList<>();
         for(Animal animal:animals){
             boolean isDead= animal.decreaseEnergy(totalTicks);
