@@ -11,10 +11,12 @@ import javax.swing.JPanel;
 
 public class WorldPanel extends JPanel {
     private final World world;
-    private final Font font;    private BufferedImage goatImage;
+    private final Font font;    
+    private BufferedImage goatImage;
 
     public WorldPanel(World world) {
         this.world = world;
+        this.font=new Font("Arial",0,16);
         setPreferredSize(new Dimension(600, 650));
         try {
             goatImage = ImageIO.read(getClass().getResource("/goat.png"));
