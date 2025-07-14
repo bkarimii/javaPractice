@@ -6,8 +6,6 @@ public class Goat extends Animal {
     
     public final int ENERGY_DECREASE_INTERVAL=5;
 
-    public final int ENERGY_DECREASE_INTERVAL=5;
-
     private Gender gender;
 
     public enum Gender {
@@ -61,7 +59,30 @@ public class Goat extends Animal {
             return energyLevel <= 0;
         }
 
-        System.out.println("Goat " + animalId + " energy decreased to " + energyLevel);
+        // System.out.println("Goat " + animalId + " energy decreased to " + energyLevel);
         return false;
     }
+
+    @Override
+public Animal tryReproduceWith(Animal partner) {
+    if (!(partner instanceof Goat)) return null;
+    Goat other = (Goat) partner;
+
+    boolean samePosition = this.x == other.x && this.y == other.y;
+    boolean differentGender = this.gender != other.gender;
+    boolean bothEnergetic = this.energyLevel >= 15 && other.energyLevel >= 15;
+    boolean notSameAnimal = this.animalId != other.animalId;
+
+    if (samePosition && differentGender && bothEnergetic && notSameAnimal) {
+        this.decreaseEnergyBy(2);
+        other.decreaseEnergyBy(2);
+        Goat baby = new Goat(this.x, this.y);
+        baby.energyLevel = 5;
+        System.out.println("🐐 Baby goat born at (" + x + ", " + y + ")");
+        return baby;
+    }
+
+    return null;
+}
+
 }
