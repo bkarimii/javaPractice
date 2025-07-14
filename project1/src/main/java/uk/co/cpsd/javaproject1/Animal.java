@@ -29,10 +29,6 @@ public abstract class Animal {
         this.energyLevel-=amount;
     }
     
-    public boolean decreaseEnergy(int currentTime){
-        return energyLevel<=0 ? true :false;
-    }
-    
     public abstract Color getColor();
 
     public int getX(){
@@ -51,5 +47,7 @@ public abstract class Animal {
     public int getEnergy(){
         return energyLevel;
     }
+
+    public abstract Animal tryReproduceWith(Animal partner);
     
 }
