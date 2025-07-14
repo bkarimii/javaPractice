@@ -3,15 +3,13 @@ package uk.co.cpsd.javaproject1;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 import java.awt.Font;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class WorldPanel extends JPanel {
     private final World world;
-    private final Font font;    private BufferedImage goatImage;
+    private final Font font;
 
     public WorldPanel(World world) {
         this.world = world;
@@ -59,7 +57,6 @@ public class WorldPanel extends JPanel {
             }
             int textWidth = g.getFontMetrics().stringWidth(idText);
             int textHeight = g.getFontMetrics().getHeight();
-            System.out.println("This is animal id: "+idText);
             int textX = animal.getX() * cellSize + (cellSize / 2) - (textWidth / 2);
             int textY = animal.getY() * cellSize + (cellSize / 2) + (textHeight / 4);
 
@@ -68,16 +65,8 @@ public class WorldPanel extends JPanel {
 
         int scoreY= world.size*cellSize+25;
         g.setColor(Color.BLACK);
-        g.setFont(new Font("Arial",Font.PLAIN,16));
+        g.setFont(font);
         String statement= "Seconds elapsed: "+ world.getSecondsElapsed()+ " Num of Goats is:  "+world.findNumOfGoats()+" Num of Grass: "+world.findNumOfGrass();
         g.drawString(statement, cellSize, scoreY);
-
-
-        int scoreY= world.size*cellSize+25;
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Arial",Font.PLAIN,16));
-        String statement= "Seconds elapsed: "+ world.getSecondsElapsed()+ " Num of Goats is:  "+world.findNumOfGoats()+" Num of Grass: "+world.findNumOfGrass();
-        g.drawString(statement, cellSize, scoreY);
-
     }
 }
