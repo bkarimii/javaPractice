@@ -11,19 +11,12 @@ import javax.swing.JPanel;
 
 public class WorldPanel extends JPanel {
     private final World world;
-    private BufferedImage goatImage;
+    private final Font font;    private BufferedImage goatImage;
 
     public WorldPanel(World world) {
         this.world = world;
         setPreferredSize(new Dimension(600, 650));
-        try {
-            goatImage = ImageIO.read(getClass().getResource("/goat.png"));
-
-            System.out.println(goatImage+"--------------------------");
-        } catch (Exception e) {
-            goatImage = null;
-            System.err.println("Could not load goat image: " + e.getMessage());
-        }
+        this.font=new Font("Arial", Font.BOLD, 18);
     }
 
     @Override
@@ -50,18 +43,12 @@ public class WorldPanel extends JPanel {
 
         world.animals().forEach(animal->{
             
-            if(animal instanceof Goat && goatImage!=null){
-                g.drawImage(goatImage, animal.getX() * cellSize+10, animal.getY() * cellSize+10, cellSize-15,cellSize-15,null);
-            }else{
-                g.setColor(animal.getColor());
-                g.fillRect(animal.getX() * cellSize+10, animal.getY() * cellSize+10, cellSize-15,cellSize-15);
-            }
-            
-            // Goats have number id, and is shown in the panel. Code has been written by AI
+            g.setColor(animal.getColor());
+            g.fillRect(animal.getX() * cellSize+10, animal.getY() * cellSize+10, cellSize-15,cellSize-15);
 
-            g.setColor(Color.BLACK); // Set color for the text (e.g., black)
-            // Adjust font size based on cell size for better visibility
-            g.setFont(new Font("Arial", Font.BOLD, Math.max(10, cellSize / 3))); // <--- NEW: Set font
+            g.setColor(Color.BLACK);
+            
+            g.setFont(font);
 
             // Calculate text position to try and center it within the animal's drawn area
             String idText = String.valueOf(animal.getId());
@@ -72,12 +59,19 @@ public class WorldPanel extends JPanel {
             }
             int textWidth = g.getFontMetrics().stringWidth(idText);
             int textHeight = g.getFontMetrics().getHeight();
-
+            System.out.println("This is animal id: "+idText);
             int textX = animal.getX() * cellSize + (cellSize / 2) - (textWidth / 2);
-            int textY = animal.getY() * cellSize + (cellSize / 2) + (textHeight / 4); // Adjust for baseline
+            int textY = animal.getY() * cellSize + (cellSize / 2) + (textHeight / 4);
 
             g.drawString(idText, textX, textY);
         });
+
+        int scoreY= world.size*cellSize+25;
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial",Font.PLAIN,16));
+        String statement= "Seconds elapsed: "+ world.getSecondsElapsed()+ " Num of Goats is:  "+world.findNumOfGoats()+" Num of Grass: "+world.findNumOfGrass();
+        g.drawString(statement, cellSize, scoreY);
+
 
         int scoreY= world.size*cellSize+25;
         g.setColor(Color.BLACK);

@@ -6,6 +6,8 @@ public class Goat extends Animal {
     
     public final int ENERGY_DECREASE_INTERVAL=5;
 
+    public final int ENERGY_DECREASE_INTERVAL=5;
+
     private Gender gender;
 
     public enum Gender {
@@ -13,8 +15,8 @@ public class Goat extends Animal {
         FEMALE
     }
 
-    public Goat(int x,int y,int id){
-        super(x,y,10,id);
+    public Goat(int x,int y){
+        super(x,y,10);
         this.gender=Math.random()<.5 ? Gender.MALE:Gender.FEMALE;
     }
 
@@ -24,7 +26,7 @@ public class Goat extends Animal {
 
     public void eatGrass(){
         this.energyLevel+=5;
-        System.out.println("Goat " + id + " at (" + x + "," + y + ") ate grass. Energy: " + energyLevel);
+        System.out.println("Goat " + animalId + " at (" + x + "," + y + ") ate grass. Energy: " + energyLevel);
     }
     @Override
     public void move(int worldSize){
@@ -41,6 +43,16 @@ public class Goat extends Animal {
     }
 
     @Override
+    public void act(World world){
+        move(world.size);
+        if(world.hasGrass(x, y)){
+            eatGrass();
+            world.removeGrass(x, y);
+        }
+
+    }
+
+    @Override
     public boolean decreaseEnergy(int currentTick){
 
         if(currentTick-lastEnergyDecreaseTick>=ENERGY_DECREASE_INTERVAL){
@@ -49,7 +61,7 @@ public class Goat extends Animal {
             return energyLevel <= 0;
         }
 
-        System.out.println("Goat " + id + " energy decreased to " + energyLevel);
+        System.out.println("Goat " + animalId + " energy decreased to " + energyLevel);
         return false;
     }
 }
