@@ -61,6 +61,9 @@ public class World {
     public void tick() {
         totalTicks++;
         growGrass();
+        growGrass();
+        growGrass();
+        growGrass();
         
         List<Animal> deadAnimals=new ArrayList<>();
         for(Animal animal:animals){
@@ -70,12 +73,36 @@ public class World {
             }
         }
         animals.removeAll(deadAnimals);
+        handleReproduction();
     }
 
     
 
     public void moveAnimals(){
         animals.forEach(animal-> animal.act(this));
-
     }
+
+    public void handleReproduction(){
+
+        Set<Integer> alreadyUsed=new HashSet<>();
+        List<Animal> newBabies=new ArrayList<>();
+        for(Animal animal1:animals){
+            if (alreadyUsed.contains(animal1.getId())) continue;
+            for(Animal animal2:animals){
+                if(animal1==animal2 || alreadyUsed.contains(animal2.getId())) continue;
+
+                Animal baby= animal1.tryReproduceWith(animal2);
+                if(baby!=null){
+                    newBabies.add(baby);
+                    System.out.println("=================Bbay was born==================");
+                    alreadyUsed.add(animal1.getId());
+                    alreadyUsed.add(animal2.getId());
+                    break;
+                }
+            }
+        }
+
+        animals.addAll(newBabies);
+    }
+
 }
