@@ -1,16 +1,19 @@
 package uk.co.cpsd.javaproject1;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+
 public class World {
     public final int size = 10;
     private List<Animal> animals;
     private int totalTicks;
-    private final int MAX_GRASS_AGE=25;
+    private final int MAX_GRASS_AGE=100;
     private int[][] grassDeathTime= new int[size][size]; 
     private List<Integer> goatHistory = new ArrayList<>();
     private List<Integer> grassHistory = new ArrayList<>();
@@ -67,6 +70,25 @@ public class World {
         return animals.stream();
     }
 
+    //=============================
+
+    public void writeToCSV(List<Integer> goatHistory, List<Integer> grassHistory){
+        
+        try{
+
+            FileWriter csvData=new FileWriter("data.csv");
+            csvData.write("Tick, NumOfGoat, NumOfGrass \n");
+            for(int i=0;i<goatHistory.size();i++){
+                csvData.write(i+", "+goatHistory.get(i)+", "+grassHistory.get(i));
+                csvData.write("\n");
+            }
+            csvData.close();
+
+        }catch(IOException e){
+            System.out.println(e);
+        }
+    }    
+
 
     public void tick() {
         totalTicks++;
@@ -79,6 +101,7 @@ public class World {
         int goatCount = findNumOfGoats();
         goatHistory.add(goatCount);
         grassHistory.add(findNumOfGrass());
+        handleReproduction();
         List<Animal> deadAnimals=new ArrayList<>();
         for(Animal animal:animals){
             boolean isDead= animal.decreaseEnergy(totalTicks);
@@ -87,7 +110,6 @@ public class World {
             }
         }
         animals.removeAll(deadAnimals);
-        handleReproduction();
     }
 
     
