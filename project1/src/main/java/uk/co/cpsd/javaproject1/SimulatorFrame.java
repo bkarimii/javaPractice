@@ -11,7 +11,7 @@ public class SimulatorFrame extends JFrame {
     private WorldPanel worldPanel;
     private Timer timer;
     // private final Timer goatTimer;
-    private int tickLimitSimulation=300;
+    private int tickLimitSimulation=10;
 
     public SimulatorFrame() {
         world = new World(20);
@@ -31,6 +31,7 @@ public class SimulatorFrame extends JFrame {
             worldPanel.repaint();       // Show updates on the screen
         
             if (world.getSecondsElapsed() >= tickLimitSimulation) {
+                world.writeToCSV(world.getGoatHistory(), world.getGrassHistory());
                 timer.stop();
         
                 SwingUtilities.invokeLater(() -> {
@@ -39,12 +40,7 @@ public class SimulatorFrame extends JFrame {
                 });
             }
         });
-        
 
-        // goatTimer = new Timer(2000,(ActionEvent e)->{
-        //     world.moveAnimals();
-        //     // worldPanel.repaint();
-        // });
         // Start the simulation
         timer.start();
         // goatTimer.start();
