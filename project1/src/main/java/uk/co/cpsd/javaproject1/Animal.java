@@ -49,5 +49,9 @@ public abstract class Animal {
     }
 
     public abstract Animal tryReproduceWith(Animal partner);
+
+    public abstract boolean isHungry();
+    public abstract boolean isSick();
+
     
 }
