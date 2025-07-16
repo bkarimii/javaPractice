@@ -24,6 +24,10 @@ public abstract class Animal {
     public boolean decreaseEnergy(int currentTime){
         return energyLevel<=0 ? true :false;
     }
+
+    public void decreaseEnergyBy(int amount){
+        this.energyLevel-=amount;
+    }
     
     public abstract Color getColor();
 
@@ -39,5 +43,15 @@ public abstract class Animal {
     }
 
     public abstract void act(World world);
+
+    public int getEnergy(){
+        return energyLevel;
+    }
+
+    public abstract Animal tryReproduceWith(Animal partner);
+
+    public abstract boolean isHungry();
+    public abstract boolean isSick();
+
     
 }
