@@ -105,6 +105,10 @@ public class World {
         List<Animal> deadAnimals=new ArrayList<>();
         for(Animal animal:animals){
             boolean isDead= animal.decreaseEnergy(totalTicks);
+            if(animal.isSick()){
+                isDead=true;
+                System.out.println("☠️ Goat " + animal.getId() + " died of sickness (energy: " + animal.getEnergy() + ")");
+            }
             if(isDead){
                 deadAnimals.add(animal);
             }
