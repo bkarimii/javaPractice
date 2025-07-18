@@ -1,6 +1,8 @@
 package uk.co.cpsd.javaproject1;
 
 import java.awt.Color;
+import java.util.List;
+import java.awt.Point;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Animal {
@@ -12,11 +14,24 @@ public abstract class Animal {
     private static final AtomicInteger idCounter=new AtomicInteger(0);
     protected int lastEnergyDecreaseTick=0;
 
+    private Gender gender;
+
+    public enum Gender {
+        MALE,
+        FEMALE
+    }
+
+
     public Animal(int x,int y, int energyLevel){
         this.x=x;
         this.y=y;
         this.energyLevel=energyLevel;
+        this.gender=Math.random()<.5 ? Gender.MALE:Gender.FEMALE;
         this.animalId=idCounter.getAndIncrement();
+    }
+
+    public Gender getGender(){
+        return gender;
     }
 
     public abstract void move(int worldSize);
@@ -42,18 +57,22 @@ public abstract class Animal {
         return animalId;
     }
 
-    public abstract void act(World world);
+    public abstract void act(World world,List<Animal> babyAnimalHolder);
 
     public int getEnergy(){
         return energyLevel;
     }
 
-    public abstract Animal tryReproduceWith(Animal partner);
+    // public abstract Animal tryReproduceWith(Animal partner);
 
     public abstract boolean isHungry();
-    public abstract boolean isSick();
 
     public abstract DecisionInfo animalDecisionMaking(World world);
 
-    
+    public abstract Animal reproduceWith(Animal partner,int currentTick);
+
+    public void setPosition(Point point){
+        this.x=point.x;
+        this.y=point.y;
+    }
 }
