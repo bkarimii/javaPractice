@@ -3,10 +3,13 @@ package uk.co.cpsd.javaproject1;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+import java.awt.Point;
 
 
 public class World {
@@ -98,8 +101,7 @@ public class World {
         growGrass();
         growGrass();
         growGrass();
-        int goatCount = findNumOfGoats();
-        goatHistory.add(goatCount);
+        goatHistory.add(findNumOfGoats());
         grassHistory.add(findNumOfGrass());
         handleReproduction();
         List<Animal> deadAnimals=new ArrayList<>();
@@ -143,6 +145,34 @@ public class World {
         }
 
         animals.addAll(newBabies);
+    }
+
+    public Map<Point,List<Object>> scanNeighbour(int x, int y){
+
+        Map<Point,List<Object>> resultOfScan=new HashMap<>();
+
+        for(int dx=-1;dx<=1;dx++){
+            for(int dy=-1; dy<=1;dy++){
+                if(dx==0&&dy==0) continue;
+
+                int nx=x+dx;
+                int ny=y+dy;
+                if(!isValid(nx,ny,size)) continue;
+                Point position=new Point(nx,ny);
+                List<Object> infoOfPosition=new ArrayList<>();
+                if(hasGrass(nx, ny)){
+                    infoOfPosition.add("grass");
+                }
+
+                resultOfScan.put(position,infoOfPosition);
+            }
+        }
+
+        return resultOfScan;
+    }
+
+    public boolean isValid(int x, int y, int worldSize){
+        return x>=0 && y>=0 && x<worldSize && y<worldSize;
     }
 
 }
