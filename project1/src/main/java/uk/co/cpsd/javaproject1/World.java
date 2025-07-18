@@ -73,6 +73,10 @@ public class World {
         return animals.stream();
     }
 
+    public int getTotalTicks(){
+        return totalTicks;
+    }
+
     //=============================
 
     public void writeToCSV(List<Integer> goatHistory, List<Integer> grassHistory){
@@ -164,6 +168,12 @@ public class World {
                     infoOfPosition.add("grass");
                 }
 
+                Animal animalAtPos=getAnimalAt(nx, ny);
+                if(animalAtPos!=null && animalAtPos instanceof Goat){
+                    infoOfPosition.add(animalAtPos);
+                    
+                }
+
                 resultOfScan.put(position,infoOfPosition);
             }
         }
@@ -173,6 +183,15 @@ public class World {
 
     public boolean isValid(int x, int y, int worldSize){
         return x>=0 && y>=0 && x<worldSize && y<worldSize;
+    }
+
+    public Animal getAnimalAt(int x, int y) {
+        for (Animal animal : animals) {
+            if (animal.getX() == x && animal.getY() == y) {
+                return animal;
+            }
+        }
+        return null;
     }
 
 }
