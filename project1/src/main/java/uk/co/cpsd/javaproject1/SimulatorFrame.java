@@ -10,7 +10,6 @@ public class SimulatorFrame extends JFrame {
     private World world;
     private WorldPanel worldPanel;
     private Timer timer;
-    // private final Timer goatTimer;
     private int tickLimitSimulation=10;
 
     public SimulatorFrame() {
@@ -26,7 +25,6 @@ public class SimulatorFrame extends JFrame {
 
         // Set up simulation timer (1 tick per 500ms)
         timer = new Timer(1000, (ActionEvent e) -> {
-            world.moveAnimals();        // Make goats move + eat + act
             world.tick();               // Tick: grow grass, energy, reproduction
             worldPanel.repaint();       // Show updates on the screen
         
@@ -43,7 +41,6 @@ public class SimulatorFrame extends JFrame {
 
         // Start the simulation
         timer.start();
-        // goatTimer.start();
         
     }
 }
