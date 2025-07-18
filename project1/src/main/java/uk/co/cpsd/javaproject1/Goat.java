@@ -1,7 +1,12 @@
 package uk.co.cpsd.javaproject1;
 
 import java.awt.Color;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.awt.Point;
 
 public class Goat extends Animal {
     
@@ -104,5 +109,50 @@ public class Goat extends Animal {
     public boolean isSick(){
         return this.energyLevel>130;
     }
+
+    @Override
+    public Point animalDecisionMaking(World world){
+        int x=this.getX();
+        int y= this.getY();
+
+        Map<Point,List<Object>> scanedNeighbourByGoat = world.scanNeighbour(x, y);
+        if(isHungry()){
+            for (Map.Entry<Point, List<Object>> posInfo : scanedNeighbourByGoat.entrySet()) {
+                if (posInfo.getValue().contains("grass")) {
+                    return posInfo.getKey();
+                }
+            }
+            return findRandomSafePos(scanedNeighbourByGoat);
+        }else{
+            return findRandomPos(scanedNeighbourByGoat);
+        }
+
+        
+
+    }
+
+    public Point findRandomSafePos(Map<Point, List<Object>> neighbourHoodPos) {
+        List<Point> safeTiles = neighbourHoodPos.entrySet()
+                .stream()
+                .filter(e -> !e.getValue().contains("lion"))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    
+        if (!safeTiles.isEmpty()) {
+            return safeTiles.get(new Random().nextInt(safeTiles.size()));
+        }
+    
+        // All tiles are dangerous stay in its place
+        return new Point(this.getX(),this.getY());
+    }
+
+    public Point findRandomPos(Map<Point, List<Object>> neighbourHoodPos) {
+        List<Point> allTiles = new ArrayList<>(neighbourHoodPos.keySet());
+        if (!allTiles.isEmpty()) {
+            return allTiles.get(new Random().nextInt(allTiles.size()));
+        }
+        return new Point(this.getX(),this.getY());
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package uk.co.cpsd.javaproject1;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Animal {
@@ -52,6 +53,8 @@ public abstract class Animal {
 
     public abstract boolean isHungry();
     public abstract boolean isSick();
+
+    public abstract Point animalDecisionMaking(World world);
 
     
 }
