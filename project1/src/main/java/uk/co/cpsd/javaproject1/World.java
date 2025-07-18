@@ -4,10 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Stream;
 import java.awt.Point;
 
@@ -40,6 +38,10 @@ public class World {
     }
     public int findNumOfGoats(){
         return (int) animals.stream().filter(animal-> animal instanceof Goat).count();
+    }
+
+    public List<Animal> getAnimals(){
+        return animals;
     }
 
     public int findNumOfGrass(){
@@ -77,6 +79,7 @@ public class World {
         return totalTicks;
     }
 
+
     //=============================
 
     public void writeToCSV(List<Integer> goatHistory, List<Integer> grassHistory){
@@ -98,57 +101,24 @@ public class World {
 
 
     public void tick() {
+        List<Animal> babyAnimalHolder=new ArrayList<>();
         totalTicks++;
         growGrass();
-        growGrass();
-        growGrass();
-        growGrass();
-        growGrass();
-        growGrass();
+
         goatHistory.add(findNumOfGoats());
         grassHistory.add(findNumOfGrass());
-        handleReproduction();
+        // handleReproduction();
         List<Animal> deadAnimals=new ArrayList<>();
         for(Animal animal:animals){
             boolean isDead= animal.decreaseEnergy(totalTicks);
-            if(animal.isSick()){
-                isDead=true;
-                System.out.println("☠️ Goat " + animal.getId() + " died of sickness (energy: " + animal.getEnergy() + ")");
-            }
+            // DecisionInfo animalDecision= animal.animalDecisionMaking(this);
+            animal.act(this, babyAnimalHolder);
             if(isDead){
                 deadAnimals.add(animal);
             }
         }
+        animals.addAll(babyAnimalHolder);
         animals.removeAll(deadAnimals);
-    }
-
-    
-
-    public void moveAnimals(){
-        animals.forEach(animal-> animal.act(this));
-    }
-
-    public void handleReproduction(){
-
-        Set<Integer> alreadyUsed=new HashSet<>();
-        List<Animal> newBabies=new ArrayList<>();
-        for(Animal animal1:animals){
-            if (alreadyUsed.contains(animal1.getId())) continue;
-            for(Animal animal2:animals){
-                if(animal1==animal2 || alreadyUsed.contains(animal2.getId())) continue;
-
-                Animal baby= animal1.tryReproduceWith(animal2);
-                if(baby!=null){
-                    newBabies.add(baby);
-                    System.out.println("=================Bbay was born==================");
-                    alreadyUsed.add(animal1.getId());
-                    alreadyUsed.add(animal2.getId());
-                    break;
-                }
-            }
-        }
-
-        animals.addAll(newBabies);
     }
 
     public Map<Point,List<Object>> scanNeighbour(int x, int y){
