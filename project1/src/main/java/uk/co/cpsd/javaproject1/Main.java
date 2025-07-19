@@ -10,35 +10,34 @@ public class Main {
 
         try {
 
-            Scanner userInput=new Scanner(System.in);
+            Scanner userInput = new Scanner(System.in);
 
-            System.out.println("-->if you want to run just a simulation press 1 , \n-->if you want to run the app press 2.");
-            int typeOfSimulation=userInput.nextInt();
+            System.out.println(
+                    "-->if you want to run just a simulation press 1 , \n-->if you want to run the app press 2.");
+            int typeOfSimulation = userInput.nextInt();
 
             System.out.println("For how long do you want to run it? Enter the time in seconds.");
-            int timeOfSimulation= userInput.nextInt();
+            int timeOfSimulation = userInput.nextInt();
 
             System.out.println("How many goats do you want to be in simulation?");
-            int numOfGoats=userInput.nextInt();
+            int numOfGoats = userInput.nextInt();
 
             userInput.close();
 
-            if(typeOfSimulation==1){
+            if (typeOfSimulation == 1) {
                 SimulatorRunner.noGUISimulation(timeOfSimulation, 20);
-            }else if(typeOfSimulation==2){
+            } else if (typeOfSimulation == 2) {
                 SwingUtilities.invokeLater(() -> {
                     @SuppressWarnings("unused")
-                    SimulatorFrame frame = new SimulatorFrame(timeOfSimulation,numOfGoats);
-                    
+                    SimulatorFrame frame = new SimulatorFrame(timeOfSimulation, numOfGoats);
+
                 });
             }
 
-        
-            
         } catch (InputMismatchException e) {
             System.out.println(e);
             System.out.println("--------->Invalid input.");
         }
-        
+
     }
 }

@@ -10,7 +10,7 @@ public class SimulatorFrame extends JFrame {
     private World world;
     private WorldPanel worldPanel;
     private Timer timer;
-    
+
     public SimulatorFrame(int tickLimitSimulation, int numOfGoats) {
         world = new World(numOfGoats);
 
@@ -24,15 +24,16 @@ public class SimulatorFrame extends JFrame {
 
         // Set up simulation timer (1 tick per 500ms)
         timer = new Timer(1000, (ActionEvent e) -> {
-            world.tick();               // Tick: grow grass, energy, reproduction
-            worldPanel.repaint();       // Show updates on the screen
-        
+            world.tick(); // Tick: grow grass, energy, reproduction
+            worldPanel.repaint(); // Show updates on the screen
+
             if (world.getTicksElapsed() >= tickLimitSimulation) {
-                world.writeToCSV(world.getGoatHistory(), world.getGrassHistory());
+                world.writeToCSV(world.getGoatPopulationHistory(), world.getGrassPopulationHistory());
                 timer.stop();
-        
+
                 SwingUtilities.invokeLater(() -> {
-                    GoatChart chart = new GoatChart(world.getGoatHistory(),world.getGrassHistory());
+                    GoatChart chart = new GoatChart(world.getGoatPopulationHistory(),
+                            world.getGrassPopulationHistory());
                     chart.setVisible(true);
                 });
             }
@@ -40,6 +41,6 @@ public class SimulatorFrame extends JFrame {
 
         // Start the simulation
         timer.start();
-        
+
     }
 }

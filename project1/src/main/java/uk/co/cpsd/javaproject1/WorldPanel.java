@@ -14,7 +14,7 @@ public class WorldPanel extends JPanel {
     public WorldPanel(World world) {
         this.world = world;
         setPreferredSize(new Dimension(600, 650));
-        this.font=new Font("Arial", Font.BOLD, 18);
+        this.font = new Font("Arial", Font.BOLD, 18);
     }
 
     @Override
@@ -37,15 +37,14 @@ public class WorldPanel extends JPanel {
                 g.drawRect(x * cellSize, y * cellSize, cellSize, cellSize);
             }
         }
-        
 
-        world.animals().forEach(animal->{
-            
+        world.animals().forEach(animal -> {
+
             g.setColor(animal.getColor());
-            g.fillRect(animal.getX() * cellSize+10, animal.getY() * cellSize+10, cellSize-15,cellSize-15);
+            g.fillRect(animal.getX() * cellSize + 10, animal.getY() * cellSize + 10, cellSize - 15, cellSize - 15);
 
             g.setColor(Color.BLACK);
-            
+
             g.setFont(font);
 
             // Calculate text position to try and center it within the animal's drawn area
@@ -63,10 +62,11 @@ public class WorldPanel extends JPanel {
             g.drawString(idText, textX, textY);
         });
 
-        int scoreY= world.size*cellSize+25;
+        int scoreY = world.size * cellSize + 25;
         g.setColor(Color.BLACK);
         g.setFont(font);
-        String statement= "Seconds elapsed: "+ world.getTicksElapsed()+ " Num of Goats is:  "+world.findNumOfGoats()+" Num of Grass: "+world.findNumOfGrass();
+        String statement = "Seconds elapsed: " + world.getTicksElapsed() + " Num of Goats is:  "
+                + world.findNumOfGoats() + " Num of Grass: " + world.findNumOfGrass();
         g.drawString(statement, cellSize, scoreY);
     }
 }
