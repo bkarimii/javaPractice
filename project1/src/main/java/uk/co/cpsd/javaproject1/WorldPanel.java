@@ -66,7 +66,7 @@ public class WorldPanel extends JPanel {
         int scoreY= world.size*cellSize+25;
         g.setColor(Color.BLACK);
         g.setFont(font);
-        String statement= "Seconds elapsed: "+ world.getSecondsElapsed()+ " Num of Goats is:  "+world.findNumOfGoats()+" Num of Grass: "+world.findNumOfGrass();
+        String statement= "Seconds elapsed: "+ world.getTicksElapsed()+ " Num of Goats is:  "+world.findNumOfGoats()+" Num of Grass: "+world.findNumOfGrass();
         g.drawString(statement, cellSize, scoreY);
     }
 }
