@@ -56,7 +56,7 @@ public class World {
         return numOfGrass;
     }
 
-    public int getSecondsElapsed(){
+    public int getTicksElapsed(){
         return totalTicks;
     }
     public void growGrass(){
